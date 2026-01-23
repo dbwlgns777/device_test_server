@@ -11,7 +11,8 @@ import java.util.concurrent.BlockingQueue;
 
 import static com.zes.device.ZES_DeviceApplication.*;
 
-public class ZES_Producer implements Runnable {
+public class ZES_Producer implements Runnable
+{
     private static final int ZES_gv_BUFFER_SIZE = 512;
     private static final int ZES_gv_CHECKSUM_OFFSET = 510;
     private static final int ZES_gv_CHECKSUM_SIZE = 2;

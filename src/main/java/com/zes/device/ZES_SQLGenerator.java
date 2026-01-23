@@ -18,22 +18,26 @@ public class ZES_SQLGenerator
         return "'" + value + "'";
     }
 
-    public static PreparedStatement findByIctNumber(Connection conn, String ictNumber, String tableName) throws SQLException {
+    public static PreparedStatement findByIctNumber(Connection conn, String ictNumber, String tableName) throws SQLException
+    {
         String ZES_lv_selectQuery = String.format("SELECT * FROM %s WHERE ict_number=?", tableName);
         PreparedStatement ZES_lv_prepStmt = conn.prepareStatement(ZES_lv_selectQuery);
         ZES_lv_prepStmt.setString(1, ictNumber);
         return ZES_lv_prepStmt;
     }
 
-    public static String getInsertErrorNumQuery(String ictNumber, long flag, long errorNum, String tableName, long timestamp) {
+    public static String getInsertErrorNumQuery(String ictNumber, long flag, long errorNum, String tableName, long timestamp)
+    {
         return String.format("INSERT INTO %s VALUES(%s, %s, %s, %s)", tableName, addQuote(ictNumber), addQuote(flag), addQuote(errorNum), convertTimestampToMySQLTimestamp(timestamp) );
     }
 
-    public static String getInsertQuery(ZES_Data[] dataMap, String ictNumber, String tableName, long timestamp) {
+    public static String getInsertQuery(ZES_Data[] dataMap, String ictNumber, String tableName, long timestamp)
+    {
         return String.format("INSERT INTO %s VALUES(%s, %s)", tableName, addQuote(ictNumber), formatInsertValues(dataMap, timestamp) );
     }
 
-    public static String getUpdateQuery(ZES_Data[] dataMap, String ictNumber, String tableName, long timestamp) {
+    public static String getUpdateQuery(ZES_Data[] dataMap, String ictNumber, String tableName, long timestamp)
+    {
         return String.format("UPDATE %s SET %s WHERE ict_number=%s", tableName, formatUpdateValues(dataMap, timestamp), addQuote(ictNumber));
     }
 
@@ -49,8 +53,10 @@ public class ZES_SQLGenerator
         executeQuery(conn, updateQuery);
     }
 
-    public static void executeQuery(Connection conn, String query) throws SQLException {
-        try (Statement statement = conn.createStatement()) {
+    public static void executeQuery(Connection conn, String query) throws SQLException
+    {
+        try (Statement statement = conn.createStatement())
+        {
             statement.executeUpdate(query);
         }
         // Connection은 호출하는 쪽(try-with-resources)에서 관리
@@ -81,7 +87,8 @@ public class ZES_SQLGenerator
     {
         List<String> values = Arrays.stream(dataMap).map(data -> data.ZES_gv_key + "=" + addQuote(data.ZES_gv_value)).collect(Collectors.toList());
         values.add("modified_date=" + convertTimestampToMySQLTimestamp(timestamp));
-        return String.join(", ", values);
+        return String.join(", ",
+                values);
     }
 
     public static String convertTimestampToMySQLTimestamp(long timestamp)
