@@ -101,35 +101,28 @@ public class ZES_Producer implements Runnable
             {
                 int ZES_lv_infoType = (int) ZES_convertByteArrayToLong(ZES_lv_buffer, ZES_gv_INFO_TYPE_OFFSET, ZES_gv_INFO_TYPE_SIZE);
                 String ZES_lv_ictNumber = ZES_convertByteArrayToString(ZES_lv_buffer, ZES_gv_ICT_NUMBER_OFFSET, ZES_gv_ICT_NUMBER_SIZE);
-                System.out.println("ZES_lv_ictNumber =>" +ZES_lv_ictNumber);
                 if(ZES_filterIctNumber(ZES_lv_ictNumber))
                 {
                     switch (ZES_lv_infoType)
                     {
                         case 0:
                             queueType0.put(new ZES_Type0(ZES_lv_timestamp, ZES_lv_buffer, ZES_lv_ictNumber));
-                            System.out.println(" Producer Queue Buffer Size Type 0 =>"+queueType0.size());
-                            // System.out.println(queueType0.size());        버퍼사이즈 체크해보기!!!!!!!!!!!!!
 //                            ZES_gv_logger.info("thread" + threadNo + " in queue : " + queueType0.size());
                             break;
                         case 1:
                             queueType1.put(new ZES_Type1(ZES_lv_timestamp, ZES_lv_buffer, ZES_lv_ictNumber));
-                            System.out.println(" Producer Queue Buffer Size Type1 1 =>"+queueType1.size());
 //                            ZES_gv_logger.info("thread" + threadNo + " in queue : " + queueType1.size());
                             break;
                         case 2:
                             queueType2.put(new ZES_Type2(ZES_lv_timestamp, ZES_lv_buffer, ZES_lv_ictNumber));
-                            System.out.println(" Producer Queue Buffer Size Type 2 =>"+queueType2.size());
 //                            ZES_gv_logger.info("thread" + threadNo + " in queue : " + queueType2.size());
                             break;
                         case 3:
                             queueType3.put(new ZES_Type3(ZES_lv_timestamp, ZES_lv_buffer, ZES_lv_ictNumber));
-                            System.out.println(" Producer Queue Buffer Size Type 3 =>"+queueType3.size());
 //                            ZES_gv_logger.info("thread" + threadNo + " in queue : " + queueType3.size());
                             break;
                         case 4:
                             queueType4.put(new ZES_Type4(ZES_lv_timestamp, ZES_lv_buffer, ZES_lv_ictNumber));
-                            System.out.println(" Producer Queue Buffer Size Type 4 =>"+queueType4.size());
 //                            ZES_gv_logger.info("thread" + threadNo + " in queue : " + queueType4.size());
                             break;
                         default: 
@@ -158,7 +151,6 @@ public class ZES_Producer implements Runnable
         {
             try
             {
-                System.out.println("socket Close in");
                 socket.close();
             }
             catch (IOException e)

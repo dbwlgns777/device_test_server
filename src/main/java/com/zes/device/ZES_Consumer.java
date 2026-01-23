@@ -25,9 +25,7 @@ public class ZES_Consumer implements Runnable
             try
             {
 //                ZES_gv_logger.info("thread" + threadNo + " out queue : " + sharedQueue.size());
-                System.out.println(" Consumer Queue Size Check Before Take @=>"+sharedQueue.size());
                 ZES_TypeInfluxDB ZES_lv_typeBase = sharedQueue.take(); // Retrieve bytes from the corresponding blocking queue
-                System.out.println(" Consumer Queue Size Check After Take @=>"+sharedQueue.size());
                 ZES_lv_typeBase.ZES_saveRealTime().ZES_saveLog();
             }
             catch (InterruptedException e)

@@ -45,9 +45,7 @@ public abstract class ZES_TypeInfluxDB extends ZES_Type
             {
                 try
                 {
-                    // System.out.println("influxDB insert in =>");   influxDB insert 부분
                     ZES_InfluxdbConfig.ZES_getInfluxDBClient().getWriteApiBlocking().writePoint(ZES_gv_bucket, ZES_gv_org, ZES_gv_point);
-                    // System.out.println("influxDB insert success =>");
                     ZES_lv_savedSuccessfully = true;
                 }
                 catch (NotFoundException nfe)
